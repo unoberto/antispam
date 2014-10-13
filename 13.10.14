@@ -1,0 +1,50 @@
+<html>
+<head>
+<title>antispam</title>
+</head>
+
+<body>
+
+<form action="number.php" method="post">
+	Номер телефона: <input type="int" name="tel_numbers" /><br />
+	Сообщение которое пришло как спам: <input type="text" name="message" /><br />
+	<input type="submit" value="Отправить форму" />
+</form>
+
+<?php
+error_reporting(E_ALL);
+$tel_numbers = $_POST['tel_numbers'];
+$message = $_POST['message'];
+
+
+//$hostname='88.214.205.236:3306';
+$hostname='sql-4.radyx.ru:3306';
+
+$username = 'rubin622';
+$password = 's9s2vz1bq9'; 
+
+
+$dbName='rubin622'; 
+
+
+$usertable='numbers_spam'; 
+
+
+MYSQL_CONNECT($hostname,$username,$password) 
+OR DIE("Не могу подсоединиться"); 
+
+
+MYSQL_SELECT_DB($dbName) or die("Не могу выбрать БД"); 
+
+
+$query="INSERT INTO $usertable VALUES ('$tel_numbers','$message')"; 
+$result=MYSQL_QUERY($query); 
+
+MYSQL_CLOSE(); 
+print "Запись введена в БД! <br>"; 
+
+
+?> 
+
+</body>
+</html>
